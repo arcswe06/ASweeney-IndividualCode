@@ -1,4 +1,6 @@
-﻿using IndividualCode;
+﻿using ASweeney_IndividualCode.UserFunctions;
+using IndividualCode;
+using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +15,6 @@ namespace IndividualCode.GlobalData
     public class StoredVariables
     {
         public static User CurrentUser { get; set; }
+        public static SqliteConnection Connection { get; set; }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IndividualCode.GlobalData;
+using Microsoft.Data.Sqlite;
 
 namespace ASweeney_IndividualCode.StartProcedure
 {
@@ -14,6 +16,8 @@ namespace ASweeney_IndividualCode.StartProcedure
 
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
+
+            StoredVariables.Connection = connection;
 
             var command = connection.CreateCommand();
 
@@ -31,7 +35,7 @@ namespace ASweeney_IndividualCode.StartProcedure
         );
 
         -- ====================================
-        -- RELATIONSHIPS: Student ↔ Supervisor
+        -- RELATIONSHIPS: Student - Supervisor
         -- ====================================
         -- Many students can have the same Personal Supervisor
         CREATE TABLE IF NOT EXISTS StudentSupervisor (
@@ -42,42 +46,44 @@ namespace ASweeney_IndividualCode.StartProcedure
             FOREIGN KEY (PersonalSupervisorID) REFERENCES Users(ID)
         );
 
-        -- ============================
+        -------------------------------------
         -- MEETINGS TABLE
-        -- ============================
-        -- A meeting is between ONE student and EITHER:
-        --   • a Personal Supervisor
-        --   • a Senior Tutor
+        -------------------------------------
+        -- Students can have unlimited meetings
+        -- Meeting is with either a Personal Supervisor or a Senior Tutor
         CREATE TABLE IF NOT EXISTS Meetings (
             MeetingID INTEGER PRIMARY KEY AUTOINCREMENT,
             StudentID INTEGER NOT NULL,
-            StaffID INTEGER NOT NULL,  -- PS or SeniorTutor
-            MeetingDate TEXT NOT NULL, -- ISO 8601 string
+            StaffID INTEGER NOT NULL,
+            MeetingName TEXT NOT NULL,
+            MeetingDate TEXT NOT NULL,
             MeetingTime TEXT NOT NULL,
             FOREIGN KEY (StudentID) REFERENCES Users(ID),
             FOREIGN KEY (StaffID) REFERENCES Users(ID)
         );
 
-        -- ============================
+        -------------------------------------
         -- REPORTS TABLE
-        -- ============================
-        -- Students create reports for their Personal Supervisors
+        -------------------------------------
+        -- Students may file unlimited reports
+        -- Reports go to their Personal Supervisor
         CREATE TABLE IF NOT EXISTS Reports (
             ReportID INTEGER PRIMARY KEY AUTOINCREMENT,
             StudentID INTEGER NOT NULL,
             PersonalSupervisorID INTEGER NOT NULL,
+            ReportText TEXT NOT NULL,
             Resolved BOOLEAN DEFAULT 0,
             CreatedDate TEXT NOT NULL,
             FOREIGN KEY (StudentID) REFERENCES Users(ID),
             FOREIGN KEY (PersonalSupervisorID) REFERENCES Users(ID)
         );
 
-        -- ============================
+        -------------------------------------
         -- CHAT TABLE
-        -- ============================
-        -- Simple messaging system between any two IDs
+        -------------------------------------
+        -- Unlimited messages between any two users
         CREATE TABLE IF NOT EXISTS Chat (
-            ChatID INTEGER PRIMARY KEY AUTOINCREMENT,
+            MessageID INTEGER PRIMARY KEY AUTOINCREMENT,
             SenderID INTEGER NOT NULL,
             ReceiverID INTEGER NOT NULL,
             Message TEXT NOT NULL,

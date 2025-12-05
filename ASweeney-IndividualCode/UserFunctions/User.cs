@@ -9,9 +9,9 @@ namespace ASweeney_IndividualCode.UserFunctions
     //Use hierarchy for creating users. All types of users share the below values.
     public abstract class User
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public string Password { get; set; }
+        public int ID { get; set; } = 0;
+        public string Name { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
     }
 
     public class PersonalSupervisor : User
@@ -26,6 +26,6 @@ namespace ASweeney_IndividualCode.UserFunctions
     //Mood and the rest is stored in different databases
     public class Student : User
     {
-        public int Mood { get; set; }
+        public int Mood { get; set; } = 5;
     }
 }
