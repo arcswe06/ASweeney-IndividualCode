@@ -22,25 +22,29 @@ namespace ASweeney_IndividualCode.Backend.UserFunctions
             string password = lastName + "123";
 
             // ------------------------
-            // 2. Generate ID: YEAR + increment
-            // Example: 2025001
+            // 2. Generate ID safe for deletions
             // ------------------------
             int year = DateTime.Now.Year;
+            int lastNumber = 0;
 
-            int currentCount = 0;
-            using (var countCmd = new SqliteCommand(
-                "SELECT COUNT(*) FROM Users WHERE ID LIKE @prefix",
-                connection))
+            using (var idCmd = new SqliteCommand(
+                @"SELECT MAX(ID) 
+              FROM Users 
+              WHERE ID BETWEEN @min AND @max", connection))
             {
-                countCmd.Parameters.AddWithValue("@prefix", year + "%");
-                currentCount = Convert.ToInt32(countCmd.ExecuteScalar());
+                idCmd.Parameters.AddWithValue("@min", year * 1000);
+                idCmd.Parameters.AddWithValue("@max", (year * 1000) + 999);
+
+                object result = idCmd.ExecuteScalar();
+
+                if (result != DBNull.Value && result != null)
+                {
+                    int lastID = Convert.ToInt32(result);
+                    lastNumber = lastID % 1000; // Extract last 3 digits
+                }
             }
 
-            // Increment by 1
-            int newNumber = currentCount + 1;
-
-            // Build final ID: YEAR + 3-digit padded number
-            int newID = int.Parse(year + newNumber.ToString("000"));
+            int newID = (year * 1000) + (lastNumber + 1);
 
             // ------------------------
             // 3. Determine UserType
@@ -50,6 +54,7 @@ namespace ASweeney_IndividualCode.Backend.UserFunctions
                 Student => "Student",
                 PersonalSupervisor => "PersonalSupervisor",
                 SeniorTutor => "SeniorTutor",
+                _ => throw new Exception("Unknown user type")
             };
 
             // ------------------------
@@ -61,18 +66,18 @@ namespace ASweeney_IndividualCode.Backend.UserFunctions
             if (user is Student student)
             {
                 moodValue = student.Mood;
-                hasPS = false; // student does not have a PS until linked later
+                hasPS = false;
             }
 
             // ------------------------
             // 5. Insert into Users table
             // ------------------------
             using (var insertCmd = new SqliteCommand(@"
-            INSERT INTO Users 
-            (ID, Name, Password, UserType, Mood, HasPersonalSupervisor)
-            VALUES 
-            (@id, @name, @password, @type, @mood, @hasPS);
-        ", connection))
+        INSERT INTO Users 
+        (ID, Name, Password, UserType, Mood, HasPersonalSupervisor)
+        VALUES 
+        (@id, @name, @password, @type, @mood, @hasPS);
+    ", connection))
             {
                 insertCmd.Parameters.AddWithValue("@id", newID);
                 insertCmd.Parameters.AddWithValue("@name", user.Name);
@@ -90,7 +95,7 @@ namespace ASweeney_IndividualCode.Backend.UserFunctions
             }
 
             // ------------------------
-            // 6. Update user object
+            // 6. Update object
             // ------------------------
             user.ID = newID;
             user.Password = password;

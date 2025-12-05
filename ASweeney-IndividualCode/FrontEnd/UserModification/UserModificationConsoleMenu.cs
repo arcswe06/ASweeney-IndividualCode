@@ -4,6 +4,7 @@ using ASweeney_IndividualCode.Backend.UserFunctions;
 using ASweeney_IndividualCode.FrontEnd.MainMenu;
 using ASweeney_IndividualCode.FrontEnd.UserModification;
 using ASweeney_IndividualCode.FrontEnd.UserModification.UserActions;
+using ASweeney_IndividualCode.FrontEnd.UserModification.UserActions.ChangePassword;
 using ASweeney_IndividualCode.FrontEnd.UserModification.UserActions.CreateUser;
 using ASweeney_IndividualCode.FrontEnd.UserModification.UserActions.RemoveUser;
 using System;
@@ -30,6 +31,11 @@ namespace ASweeney_IndividualCode.FrontEnd.UserModification
             {
                 _menuItems.Add(new CreateUserMenuItem(this));
                 _menuItems.Add(new RemoveUserMenuItem(this));
+                _menuItems.Add(new ChangePasswordAdminMenuItem(this));
+            }
+            else
+            {
+                _menuItems.Add(new ChangePasswordMenuItem(this));
             }
 
             _menuItems.Add(new ReturntoMainMenuItem());

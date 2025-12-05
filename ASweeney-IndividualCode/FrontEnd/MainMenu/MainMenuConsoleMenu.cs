@@ -19,11 +19,7 @@ namespace ASweeney_IndividualCode.FrontEnd.MainMenu
         public override void CreateMenu()
         {
             _menuItems.Clear();
-            if (StoredVariables.CurrentUser.GetType() == typeof(SeniorTutor))
-            {
-                _menuItems.Add(new UserModificationMenuItem(this));
-            }
-
+            _menuItems.Add(new UserModificationMenuItem(this));         
             _menuItems.Add(new LogOutMenuItem(this));
         }
 

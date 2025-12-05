@@ -21,7 +21,6 @@ namespace ASweeney_IndividualCode.BackEnd.UserFunctions.DisplayUsers
         private bool _showUnresolvedReports;
         private bool _showReportsAge;
         private bool _showNextMeeting;
-        private bool _headerShown = false;
         private int SelectFunction;
 
 
@@ -50,32 +49,6 @@ namespace ASweeney_IndividualCode.BackEnd.UserFunctions.DisplayUsers
         public override string MenuText()
         {
             StringBuilder sb = new StringBuilder();
-
-            // Only show header once
-            if (!_headerShown)
-            {
-                _headerShown = true;
-                sb.Append("ID".PadRight(6));
-                sb.Append("Name".PadRight(20));
-                if (_showUserType)
-                    sb.Append("Type".PadRight(18));
-                if (_showMood)
-                    sb.Append("Mood".PadRight(6));
-                if (_showUnresolvedReports)
-                    sb.Append("#Reports".PadRight(10));
-                if (_showReportsAge)
-                    sb.Append("OldestReport".PadRight(12));
-                if (_showNextMeeting)
-                    sb.Append("NextMeeting".PadRight(20));
-                sb.AppendLine();
-
-                sb.AppendLine(new string('-', 6 + 20 +
-                    (_showUserType ? 18 : 0) +
-                    (_showMood ? 6 : 0) +
-                    (_showUnresolvedReports ? 10 : 0) +
-                    (_showReportsAge ? 12 : 0) +
-                    (_showNextMeeting ? 20 : 0)));
-            }
 
             sb.Append(_user.ID.ToString().PadRight(6));
             sb.Append(_user.Name.PadRight(20));
