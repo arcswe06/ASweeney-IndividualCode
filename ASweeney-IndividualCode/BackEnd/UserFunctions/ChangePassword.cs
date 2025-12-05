@@ -1,17 +1,18 @@
-﻿using IndividualCode.GlobalData;
+﻿using ASweeney_IndividualCode.Backend.GlobalData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ASweeney_IndividualCode.UserFunctions
+namespace ASweeney_IndividualCode.Backend.UserFunctions
 {
     internal class ChangePassword
     {
         public static void Change(int userId, string newPassword, User userObject = null)
         {
             var connection = StoredVariables.Connection;
+            connection.Open();
 
             using (var cmd = connection.CreateCommand())
             {
@@ -28,7 +29,7 @@ namespace ASweeney_IndividualCode.UserFunctions
                 {
                     userObject.Password = newPassword;
                 }
-                
+
             }
         }
     }

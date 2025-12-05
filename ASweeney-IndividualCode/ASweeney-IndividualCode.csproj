@@ -12,4 +12,11 @@
     <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="BackEnd\Meetings\" />
+    <Folder Include="BackEnd\Chat\" />
+    <Folder Include="BackEnd\Reports\" />
+    <Folder Include="FrontEnd\" />
+  </ItemGroup>
+
 </Project>

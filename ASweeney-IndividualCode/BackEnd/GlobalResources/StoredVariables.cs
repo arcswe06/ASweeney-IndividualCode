@@ -1,5 +1,4 @@
-﻿using ASweeney_IndividualCode.UserFunctions;
-using IndividualCode;
+﻿using ASweeney_IndividualCode.Backend.UserFunctions;
 using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
@@ -7,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IndividualCode.GlobalData
+namespace ASweeney_IndividualCode.Backend.GlobalData
 {
     /// <summary>
     /// This stores values and the current user.

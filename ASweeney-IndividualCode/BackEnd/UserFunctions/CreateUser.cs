@@ -1,4 +1,4 @@
-﻿using IndividualCode.GlobalData;
+﻿using ASweeney_IndividualCode.Backend.GlobalData;
 using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
@@ -6,13 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ASweeney_IndividualCode.UserFunctions
+namespace ASweeney_IndividualCode.Backend.UserFunctions
 {
     internal class CreateUser
     {
         public static void Create(User user)
         {
             var connection = StoredVariables.Connection;
+            connection.Open();
 
             // ------------------------
             // 1. Generate Password

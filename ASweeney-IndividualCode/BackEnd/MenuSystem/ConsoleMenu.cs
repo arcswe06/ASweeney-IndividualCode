@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Capstone.MenuSystem
+namespace ASweeney_IndividualCode.Backend.MenuSystem
 {
     using System;
     using System.Collections.Generic;
@@ -28,7 +28,7 @@ namespace Capstone.MenuSystem
                 Console.Clear();
                 CreateMenu();
                 string output = $"{MenuText()}{Environment.NewLine}";
-                int selection = ConsoleHelper.GetIntegerInRange(1, _menuItems.Count, this.ToString()) - 1;
+                int selection = ConsoleHelper.GetIntegerInRange(1, _menuItems.Count, ToString()) - 1;
                 _menuItems[selection].Select();
             } while (IsActive);
         }

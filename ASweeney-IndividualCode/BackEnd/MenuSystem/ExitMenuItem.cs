@@ -1,11 +1,10 @@
-﻿using Capstone.MenuSystem;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Capstone.MenuSystem
+namespace ASweeney_IndividualCode.Backend.MenuSystem
 {
     /// <summary>
 	/// Represents a menu item that exits the menu.

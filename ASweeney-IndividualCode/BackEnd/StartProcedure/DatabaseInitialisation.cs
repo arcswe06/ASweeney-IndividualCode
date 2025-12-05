@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IndividualCode.GlobalData;
+using ASweeney_IndividualCode.Backend.GlobalData;
 using Microsoft.Data.Sqlite;
 
-namespace ASweeney_IndividualCode.StartProcedure
+namespace ASweeney_IndividualCode.Backend.StartProcedure
 {
     internal class DatabaseInitialisation
     {
-        public static void InitializeDatabase()
+        public static void Initialize()
         {
-            string connectionString = "Data Source=users.db;Version=3;";
+            string connectionString = "Data Source=users.db;";
 
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
@@ -94,6 +94,13 @@ namespace ASweeney_IndividualCode.StartProcedure
         ";
 
             command.ExecuteNonQuery();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("User file successfully created/retrieved!");
+            Console.WriteLine("Relationships file successfully created/retrieved!");
+            Console.WriteLine("Meetings file successfully created/retrieved!");
+            Console.WriteLine("Reports file successfully created/retrieved!");
+            Console.WriteLine("Chat file successfully created/retrieved!");
+            Console.ResetColor();
         }
 
     }

@@ -1,0 +1,41 @@
+: MenuItem
+    {
+        ConsoleMenu _menu;
+
+        public TransactionMenuItemConsoleMenu parentItem)
+        {
+            _menu = parentItem;
+        }
+
+        public override string MenuText()
+        {
+            return "Begin Transaction";
+        }
+
+        public override void Select()
+        {
+            
+        }
+    }
+
+: ConsoleMenu
+    {
+        private ConsoleMenu _menu;
+
+        public #(ConsoleMenu parentItem)
+        {
+            _menu = parentItem;
+        }
+
+        public override void CreateMenu()
+        {
+            _menuItems.Clear();
+            _menuItems.Add(new 
+        }
+
+
+        public override string MenuText()
+        {
+            return $"";           
+        }
+    }

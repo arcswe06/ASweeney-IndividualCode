@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ASweeney_IndividualCode.UserFunctions
+namespace ASweeney_IndividualCode.Backend.UserFunctions
 {
     //Use hierarchy for creating users. All types of users share the below values.
     public abstract class User

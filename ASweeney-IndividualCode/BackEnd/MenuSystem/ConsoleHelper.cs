@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Capstone.MenuSystem
+namespace ASweeney_IndividualCode.Backend.MenuSystem
 {
     static class ConsoleHelper
     {
