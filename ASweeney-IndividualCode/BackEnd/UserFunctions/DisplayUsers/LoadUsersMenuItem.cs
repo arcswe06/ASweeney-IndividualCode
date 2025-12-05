@@ -1,17 +1,21 @@
 ﻿using ASweeney_IndividualCode.Backend.GlobalData;
 using ASweeney_IndividualCode.Backend.MenuSystem;
+using ASweeney_IndividualCode.Backend.UserFunctions;
+using ASweeney_IndividualCode.BackEnd.GlobalResources;
+using ASweeney_IndividualCode.FrontEnd.MainMenu;
 using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace ASweeney_IndividualCode.BackEnd.UserFunctions.DisplayUsers
 {
     internal class LoadUsersMenuItem : MenuItem
     {
-        private UserData _user;
+        private UserLoader.UserData _user;
         private bool _showUserType;
         private bool _showMood;
         private bool _showUnresolvedReports;
@@ -20,21 +24,28 @@ namespace ASweeney_IndividualCode.BackEnd.UserFunctions.DisplayUsers
         private bool _headerShown = false;
         private int SelectFunction;
 
+
         private ConsoleMenu _parentMenu;
 
-        public LoadUsersMenuItem(ConsoleMenu parentMenu, UserData user,
-            bool showUserType = true, bool showMood = true,
-            bool showUnresolvedReports = true, bool showReportsAge = true, bool showNextMeeting = true, int selectFunction = 0)
-        {
-            _parentMenu = parentMenu;
-            _user = user;
-            _showUserType = showUserType;
-            _showMood = showMood;
-            _showUnresolvedReports = showUnresolvedReports;
-            _showReportsAge = showReportsAge;
-            _showNextMeeting = showNextMeeting;
-            SelectFunction = selectFunction;
-        }
+        public LoadUsersMenuItem(
+            ConsoleMenu parentMenu,
+            UserLoader.UserData user,
+            bool showUserType = true,
+            bool showMood = true,
+            bool showUnresolvedReports = true,
+            bool showReportsAge = true,
+            bool showNextMeeting = true,
+            int selectFunction = 0)
+            {
+                _parentMenu = parentMenu;
+                _user = user;
+                _showUserType = showUserType;
+                _showMood = showMood;
+                _showUnresolvedReports = showUnresolvedReports;
+                _showReportsAge = showReportsAge;
+                _showNextMeeting = showNextMeeting;
+                SelectFunction = selectFunction;
+            }
 
         public override string MenuText()
         {
@@ -114,26 +125,26 @@ namespace ASweeney_IndividualCode.BackEnd.UserFunctions.DisplayUsers
 
         public override void Select()
         {
+            ConsoleMenu Main = new MainMenuConsoleMenu();
+
             switch (SelectFunction)
             {
                 case 0:
-                    Console.WriteLine("hello");
-                break;
+                    DeleteUser.Delete(_user.ID);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"Deleted user: {_user.Name}");
+                    Console.ResetColor();
+                    PressEnter.Press();
+                    Main.Select();
+
+                    break;
             }
+
         }
 
         // -----------------------------
         // Internal class for user data
         // -----------------------------
-        internal class UserData
-        {
-            public int ID;
-            public string Name;
-            public string UserType;
-            public int? Mood;
-            public int UnresolvedReportsCount;
-            public DateTime? OldestReportDate;
-            public DateTime? NextMeetingDate;
-        }
+
     }
 }

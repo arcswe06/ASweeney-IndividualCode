@@ -12,6 +12,10 @@ namespace ASweeney_IndividualCode.Backend.StartProcedure
     {
         public static void Initialize()
         {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Beginning database initialisation");
+            Console.ResetColor();
+
             string connectionString = "Data Source=users.db;";
 
             using var connection = new SqliteConnection(connectionString);
@@ -38,7 +42,7 @@ namespace ASweeney_IndividualCode.Backend.StartProcedure
         -- RELATIONSHIPS: Student - Supervisor
         -- ====================================
         -- Many students can have the same Personal Supervisor
-        CREATE TABLE IF NOT EXISTS StudentSupervisor (
+        CREATE TABLE IF NOT EXISTS Relationships  (
             StudentID INTEGER NOT NULL,
             PersonalSupervisorID INTEGER NOT NULL,
             PRIMARY KEY (StudentID, PersonalSupervisorID),
@@ -94,6 +98,7 @@ namespace ASweeney_IndividualCode.Backend.StartProcedure
         ";
 
             command.ExecuteNonQuery();
+
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("User file successfully created/retrieved!");
             Console.WriteLine("Relationships file successfully created/retrieved!");

@@ -12,6 +12,10 @@ namespace ASweeney_IndividualCode.BackEnd.StartProcedure
     {
         public static void Create()
         {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Creating default user");
+            Console.ResetColor();
+
             var connection = StoredVariables.Connection;
             connection.Open();
 

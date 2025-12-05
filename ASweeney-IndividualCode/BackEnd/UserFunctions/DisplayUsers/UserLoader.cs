@@ -37,12 +37,13 @@ namespace ASweeney_IndividualCode.BackEnd.UserFunctions.DisplayUsers
         {
             var users = new List<UserData>();
             var connection = StoredVariables.Connection;
+            connection.Open();
 
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("SELECT u.ID, u.Name, u.UserType, u.Mood,");
             sb.AppendLine("(SELECT COUNT(*) FROM Reports r WHERE r.StudentID = u.ID AND r.Resolved = 0) AS UnresolvedReportsCount,");
-            sb.AppendLine("(SELECT MIN(r.CreatedAt) FROM Reports r WHERE r.StudentID = u.ID AND r.Resolved = 0) AS OldestReportDate,");
-            sb.AppendLine("(SELECT MIN(m.DateTime) FROM Meetings m WHERE m.StudentID = u.ID AND m.DateTime >= CURRENT_TIMESTAMP) AS NextMeetingDate");
+            sb.AppendLine("(SELECT MIN(r.CreatedDate) FROM Reports r WHERE r.StudentID = u.ID AND r.Resolved = 0) AS OldestReportDate,");
+            sb.AppendLine("(SELECT MIN(datetime(m.MeetingDate || ' ' || m.MeetingTime))\r\n FROM Meetings m\r\n WHERE m.StudentID = u.ID \r\n   AND datetime(m.MeetingDate || ' ' || m.MeetingTime) >= CURRENT_TIMESTAMP\r\n) AS NextMeetingDate");
             sb.AppendLine("FROM Users u");
             sb.AppendLine("LEFT JOIN Relationships rel ON u.ID = rel.StudentID");
             sb.AppendLine("WHERE 1=1");

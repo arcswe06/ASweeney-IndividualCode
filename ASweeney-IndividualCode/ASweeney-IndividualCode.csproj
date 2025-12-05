@@ -16,7 +16,7 @@
     <Folder Include="BackEnd\Meetings\" />
     <Folder Include="BackEnd\Chat\" />
     <Folder Include="BackEnd\Reports\" />
-    <Folder Include="FrontEnd\" />
+    <Folder Include="FrontEnd\UserModification\UserActions\Relationships\" />
   </ItemGroup>
 
 </Project>

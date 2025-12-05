@@ -1,8 +1,8 @@
-: MenuItem
+"NameOfClass" : MenuItem
     {
         ConsoleMenu _menu;
 
-        public TransactionMenuItemConsoleMenu parentItem)
+        public "NameOfClass"(ConsoleMenu parentItem)
         {
             _menu = parentItem;
         }
@@ -18,11 +18,11 @@
         }
     }
 
-: ConsoleMenu
+"NameOfClass" : ConsoleMenu
     {
         private ConsoleMenu _menu;
 
-        public #(ConsoleMenu parentItem)
+        public "NameOfClass"(ConsoleMenu parentItem)
         {
             _menu = parentItem;
         }
@@ -36,6 +36,6 @@
 
         public override string MenuText()
         {
-            return $"";           
+            return $"Title of menu";           
         }
     }
